@@ -6,10 +6,17 @@ document.querySelectorAll(".drum")[i].addEventListener("click", handleClick);
 }
 
 function handleClick() {
-
 var buttonInnerHTML = this.innerHTML;
+createSound(buttonInnerHTML);
+}
 
-  switch (buttonInnerHTML) {
+document.addEventListener("keypress", function(event) {
+createSound(event.key);
+});
+
+function createSound(key) {
+
+  switch (key) {
     case "w":
       var audio1 = new Audio('sounds/tom-1.mp3');
       audio1.play();
@@ -46,6 +53,5 @@ var buttonInnerHTML = this.innerHTML;
                       break;
 
     default: console.log("fail");
-
   }
 }
