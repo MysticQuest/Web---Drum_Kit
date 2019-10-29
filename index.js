@@ -1,22 +1,24 @@
 var numberOfButtons = document.querySelectorAll(".drum").length;
 
-for (var i = 0; i < numberOfButtons; i++)
-{
+for (var i = 0; i < numberOfButtons; i++) {
 document.querySelectorAll(".drum")[i].addEventListener("click", handleClick);
 }
 
+document.addEventListener("keypress", function (event) {
+createSound(event.key); //key is a property of the keyboard event
+buttonAnimation(event.key);
+});
+
 function handleClick() {
 var buttonInnerHTML = this.innerHTML;
+buttonAnimation(buttonInnerHTML);
 createSound(buttonInnerHTML);
 }
 
-document.addEventListener("keypress", function(event) {
-createSound(event.key);
-});
+function createSound(correctKey) {
 
-function createSound(key) {
+  switch (correctKey) {
 
-  switch (key) {
     case "w":
       var audio1 = new Audio('sounds/tom-1.mp3');
       audio1.play();
@@ -52,6 +54,12 @@ function createSound(key) {
                   audio7.play();
                       break;
 
-    default: console.log("fail");
+    default: console.log("wrong key");
   }
+}
+
+function buttonAnimation(correctKey2) {
+var activeButton = document.querySelector("." + correctKey2);
+activeButton.classList.add("pressed");
+setTimeout(function() {activeButton.classList.remove("pressed");}, 100);
 }
